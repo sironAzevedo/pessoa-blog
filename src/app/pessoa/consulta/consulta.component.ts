@@ -4,7 +4,6 @@ import { PessoaService } from '../../services/pessoa.service';
 import { Pessoa } from '../../blog-model/pessoa-model/pessoa';
 import { Response } from '../../services/response';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialogRef, MatDialog } from '@angular/material';
-import { sortByProperty } from '../../../validators/sort-by';
 import { FILE_TYPE_PDF, FILE_TYPE_EXCEL } from '../../blog-constants/blog.constants';
 import { DialogBlogEmailComponent } from '../../shered/components/dialog-blog-email/dialog-blog-email.component';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -145,7 +144,7 @@ export class ConsultaComponent implements OnInit {
     }
 
     editar(codigo: number): void {
-        this.router.navigate(['/cadastro-pessoa', codigo]); 
+        this.router.navigate(['/cadastro-pessoa', codigo]);
     }
 
     downloadFile() {

@@ -8,8 +8,7 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "postinstall": "ng build --aot --target=production"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -27,9 +26,10 @@
     "angular2-tag-input": "^1.2.3",
     "bootstrap": "^4.0.0-beta",
     "core-js": "^2.4.1",
+    "express": "^4.16.3",
     "file-saver": "^1.3.3",
     "hammerjs": "^2.0.8",
-    "express": "^4.16.3",
+    "moment": "^2.21.0",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
