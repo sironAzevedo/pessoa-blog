@@ -1,0 +1,54 @@
+div.email{
+    height: auto;
+    width: 741px;
+    
+    mat-toolbar{
+        margin-top: -24px;
+        margin-left: -24px;
+        width: 789px;
+    }
+
+    .form-control{
+        display: block;
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.25;
+        color: #495057;
+      /*   background-color: #fff; */
+        background-image: none;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 0.25rem;
+        -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+        transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+        margin-top: 25px;
+    }
+
+    .footer{
+        margin-left: 560px;
+        margin-top: 45px;
+    } 
+}
+
+.spinner-cadastro{
+    position: fixed;
+    z-index: 1000;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: -143px;
+    left: -158px;
+    bottom: 0;
+    right: 0;
+
+    mat-progress-spinner {
+        display: block;
+        position: relative;
+    }   
+}
+
+ 

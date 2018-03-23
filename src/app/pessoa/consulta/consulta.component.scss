@@ -1,0 +1,45 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px; 
+  }
+  
+  .example-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+    
+    mat-form-field{
+      font-size: 14px;
+      width: 50%;
+      display: inline-block;
+      position: relative;
+      text-align: left;
+    }
+
+    .search{
+      font-size: 42px;
+      width: 39px;
+    }
+
+    .action{
+      display: inline-block;
+      margin-left: 410px; 
+
+      mat-icon material-icons{
+        height: 30px;
+        width: 30px;
+      }
+    }
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  .mat-table {
+    overflow: auto;
+    max-height: 500px;
+  }
+  
+  

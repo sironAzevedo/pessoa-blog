@@ -1,0 +1,111 @@
+<div class="w3-container">
+    <h3>{{titulo}}</h3>
+</div>
+
+<div class="example-header">
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+
+    <div class="action">
+
+        <!-- Menu exluir selecionado: INICIO -->
+        <button mat-icon-button [matMenuTriggerFor]="menuExluir">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menuExluir="matMenu" yPosition="above">
+            <button mat-raised-button color="accent" [disabled]="!pessoas.length > 0 || !selection.selected.length > 0 " (click)="excluirSelecionados()">
+                <mat-icon>delete_sweep</mat-icon>
+                <span>Excluir Selecionados</span>
+            </button>
+        </mat-menu>
+        <!-- Menu excluir selecionado: FINAL -->
+
+        <button mat-button (click)="downloadFile()">
+            <mat-icon>print</mat-icon>
+        </button>
+
+        <!-- Menu print: INICIO -->
+        <button mat-icon-button [matMenuTriggerFor]="menuPrint">
+            <mat-icon>email</mat-icon>
+        </button>
+        <mat-menu #menuPrint="matMenu" yPosition="above">
+            <button mat-button (click)="sendEmailPdf()">
+                <!-- <mat-icon>picture_as_pdf</mat-icon> -->
+                <i class="fa fa-file-pdf-o" style="font-size:24px;color:red"></i>
+            </button>
+            <button mat-button (click)="sendEmailExcel()" [disabled]="!selection.selected.length > 0">
+                <!-- <mat-icon>picture_as_pdf</mat-icon> -->
+                <i class="fa fa-file-excel-o" style="font-size:24px"></i>
+            </button>
+        </mat-menu>
+        <!-- Menu print: FINAL -->
+    </div>
+
+</div>
+
+<div class="example-container mat-elevation-z8">
+
+    <mat-table #table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+            </mat-cell>
+        </ng-container>
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="codigo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.codigo}} </mat-cell>
+        </ng-container>
+
+        <!-- Progress Column -->
+        <ng-container matColumnDef="nome">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Nome </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.nome}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="ativo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Reg. Ativo </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.ativo}} </mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="editar">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Editar </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-button (click)="editar(row.codigo);">
+                    <mat-icon>mode_edit</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="excluir">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Excluir </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-button (click)="excluir(row.codigo);">
+                    <mat-icon>delete_forever</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

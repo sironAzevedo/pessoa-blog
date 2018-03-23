@@ -1,0 +1,39 @@
+<p>{{titulo}}</p>
+<toaster-container [toasterconfig]="config"></toaster-container>
+
+<form [formGroup]="assetCadastroForm" class="mat-elevation-z8">
+
+    <mat-input-container *ngIf="isViewUpdate()" class="nomePessoa">
+        <input matInput type="text" id="pessoaCodigo" placeholder="Código" formControlName="pessoaCodigo" maxlength="50" readonly="true">
+    </mat-input-container>
+
+    <mat-input-container>
+        <input matInput type="text" mdInput type="text" id="pessoaNome" placeholder="Nome" formControlName="pessoaNome" maxlength="50">
+    </mat-input-container>
+
+    <mat-input-container>
+        <input matInput type="email" matInput type="text" id="emailCliente" placeholder="Email" formControlName="emailCliente">
+        <div data-input-message class="alert-cadastro" *ngIf="assetCadastroForm.controls?.emailCliente?.errors?.email">
+            <mat-icon>warning</mat-icon> Email invalido.
+        </div>
+    </mat-input-container>
+
+    <div>
+        <p>Registro Ativo:</p>
+        <mat-radio-group formControlName="registroAtivo">
+            <mat-radio-button [value]="true">Sim</mat-radio-button>
+            <!-- disabled is Old API on new ng-material should use 'ng-disables' -->
+            <mat-radio-button [value]="false">Não</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <button type="button" mat-raised-button color="primary" (click)="salvar()" [disabled]="!assetCadastroForm.valid">
+        <mat-icon *ngIf="!isViewUpdate()">playlist_add</mat-icon>
+        <mat-icon *ngIf="isViewUpdate()">loop</mat-icon>
+        <!-- <mat-spinner *ngIf="!assetCadastroForm.valid" class="spinner-cadastro" diameter="30" color="accent"> </mat-spinner> -->
+        {{descButton}}
+    </button>
+</form>
+
+
+<button (click)="popToast('teste')">pop toast</button>

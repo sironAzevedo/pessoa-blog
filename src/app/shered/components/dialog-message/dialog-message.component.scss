@@ -1,0 +1,74 @@
+.alert-dialog {
+    width: 355px;
+    padding: 0 15px;
+    text-align: center;
+    &__icon {
+        width: 65px;
+        height: 65px;
+        font-size: 65px;
+        margin-bottom: 16px;
+        margin-top: 15px;
+    }
+    &__title {
+        font-size: 20px;
+        text-align: center;
+    }
+    &__text {
+        margin-top: 14px;
+        color: #777;
+        font-size: 15.9px;
+    }
+    &__button {
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 8px;
+        margin-bottom: 5px;
+        color: #ec2928;
+        &:hover,
+        &:focus {
+            /deep/ .mat-button-focus-overlay {
+                opacity: .2;
+            }
+        }
+    }
+    &--default {
+        .alert-dialog__icon {
+            display: inline-block;  
+            background-color: #ec2928;
+            width: 65px;
+            height: 65px;
+            line-height: 65px;
+            border-radius: 100px;
+            margin-bottom: 23px;
+            margin-top: 15px;
+            svg {
+                display: inline-block;
+                width: 33px;
+                height: 60px;
+                path {
+                    fill: #fff;
+                }
+            }
+        } 
+    }
+    &--success {
+        .alert-dialog__icon {
+            color: #00C853;
+        }
+    }
+    &--error {
+        .alert-dialog__icon {
+            color: #D50000;
+        } 
+    }
+    &--warning {
+        .alert-dialog__icon {
+            color: #f1c40f;
+        } 
+    }
+    &--help {
+        .alert-dialog__icon {
+            color: #999999;
+        }
+    }
+}

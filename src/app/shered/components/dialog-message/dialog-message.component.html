@@ -1,0 +1,14 @@
+<div [class]="'alert-dialog alert-dialog--'+type">
+
+    <mat-icon *ngIf="type !== 'default' " class="alert-dialog__icon">{{icon}}</mat-icon>
+  
+    <span *ngIf="type === 'default' " class="alert-dialog__icon"><svg data-name="Camada 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 29"><defs></defs><title>sprint1Prancheta 1</title><path class="cls-1" d="M16.45,2c0,3.41,5.72,7.2,5.72,11.09a2.35,2.35,0,0,1-.16.78c5.35,1.13,9.14,3.79,9.14,6.91,0,4.19-6.75,7.66-15.12,7.66C7.48,28.41.85,25,.85,20.91c0-3.11,4.1-5.64,9.06-7,0,1.72,5.64,7.17,5.77,9.37a2.14,2.14,0,0,1,0,.73c1.22-.64,1.22-2.66,1.22-2.66,0-4.78-5.48-6.9-5.48-11.6A4,4,0,0,1,13,6.22V7.53C13,10.95,19,14.76,19,17.88v1c1.38-.54,1.38-3.09,1.38-3.09,0-4.3-5.51-6.69-5.51-11.61A4,4,0,0,1,16.45.66Z"/></svg></span>
+  
+    <h3 *ngIf="title" class="alert-dialog__title" [innerHtml]="title"></h3>
+    <p *ngIf="text" class="alert-dialog__text" [innerHtml]="text"></p>
+  
+    <ng-template pvd-host></ng-template>
+  
+    <button mat-button class="alert-dialog__button" mat-dialog-close *ngIf="showButton" pvdAutoFocus>{{buttonText}}</button>
+  </div>
+  

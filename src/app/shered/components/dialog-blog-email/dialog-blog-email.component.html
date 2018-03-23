@@ -1,0 +1,48 @@
+<div class="email">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Relatório</span>
+      <mat-icon>keyboard_arrow_right</mat-icon>
+      <span>E-MAIL</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div class="form-group" data-backdrop="static">
+    <form [formGroup]="emailForm">
+      <input class="form-control" type="text" id="remetente" formControlName="emailRemetente" maxlength="50" readonly="true">
+
+      <mat-form-field class="form-control">
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let destinatario of destinatarios" [selectable]="selectable" [removable]="removable" (remove)="remove(destinatario)"
+            mat-max-chips="5">
+            {{destinatario.email}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Destinatarios" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)" />
+        </mat-chip-list>
+      </mat-form-field>
+
+      <textarea class="form-control" placeholder="Digite sua mensagem" formControlName="emailMensagem" matTextareaAutosize matAutosizeMinRows="5"
+        matAutosizeMaxRows="5"></textarea>
+
+      <div class="footer">
+        <button type="button" mat-raised-button color="warn" (click)="cancelEmail()" [disabled]="isSending">Cancelar</button>
+        <button type="button" mat-raised-button color="primary" (click)="sendEmail()" [disabled]="isSending || !destinatarios.length > 0">
+          <!-- <mat-spinner *ngIf="isSending" class="spinner-cadastro" diameter="30" color="accent"> </mat-spinner> -->
+          Enviar
+        </button>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<div class="spinner-cadastro" *ngIf="isSending">
+  <!-- <mat-spinner diameter="200" color="accent"> </mat-spinner> -->
+  <div class="w3-container">
+    <p>
+      <i class="fa fa-spinner w3-spin" style="font-size:150px"></i>
+    </p>
+  </div>
+</div>
