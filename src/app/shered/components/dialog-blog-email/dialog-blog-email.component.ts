@@ -5,11 +5,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EMAIL_SISTEMA, EMAIL_SISTEMA_TELA } from '../../../blog-constants/blog.constants';
 import { PessoaService } from '../../../services/pessoa.service';
 import { Mensagem, Destinatario } from '../../../blog-model/mensagem-model/mensagem-model';
-import { Response } from '../../../services/response';
 
 
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { DialogAlertData, DialogMessageComponent } from '../dialog-message/dialog-message.component';
+import { ResponsePessoa } from '../../../services/ResponsePessoa';
 
 @Component({
   selector: 'app-dialog-blog-email',
@@ -77,7 +77,7 @@ export class DialogBlogEmailComponent implements OnInit {
       anexo: true,
     }
     this.pessoaService.sendEmail(type, sendMessage).subscribe(response => {
-      let res: Response = <Response>response;
+      let res: ResponsePessoa = <ResponsePessoa>response;
       if (res.codigo == 1) {
         this.onCloseDialog.emit();
         const alertData: DialogAlertData = {
