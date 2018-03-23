@@ -11,7 +11,6 @@ import { DialogMessageComponent } from './components/dialog-message/dialog-messa
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { SimpleListComponent } from './components/simple-list/simple-list.component';
 import { CurrencyMaskDirective } from './directives/currency-mask.directive';
-import { ToasterModule, ToasterService } from 'angular2-toaster';
 
 @NgModule({
     imports: [
@@ -31,7 +30,7 @@ import { ToasterModule, ToasterService } from 'angular2-toaster';
         AutofocusDirective,
         DialogBlogEmailComponent,
         DialogMessageComponent,
-        ToasterModule,
+      /*   ToasterModule, */
         SimpleListComponent,
         CurrencyMaskDirective
     ],
@@ -45,7 +44,7 @@ import { ToasterModule, ToasterService } from 'angular2-toaster';
         SimpleListComponent,
         CurrencyMaskDirective
     ],
-    providers: [ToasterService],
+    providers: [/* ToasterService */],
     entryComponents: [DialogBlogEmailComponent, DialogMessageComponent, SimpleListComponent],
 })
 export class SharedModule { }

@@ -1,4 +1,4 @@
-export class Response {
+export class ResponsePessoa {
 
     codigo: number;
     mensagem: string;

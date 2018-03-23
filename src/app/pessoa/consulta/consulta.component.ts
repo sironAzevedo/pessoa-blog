@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { PessoaService } from '../../services/pessoa.service';
 import { Pessoa } from '../../blog-model/pessoa-model/pessoa';
-import { Response } from '../../services/response';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialogRef, MatDialog } from '@angular/material';
 import { FILE_TYPE_PDF, FILE_TYPE_EXCEL } from '../../blog-constants/blog.constants';
 import { DialogBlogEmailComponent } from '../../shered/components/dialog-blog-email/dialog-blog-email.component';
@@ -10,6 +9,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { EventEmitter } from 'events';
 import { DialogAlertData, DialogMessageComponent } from '../../shered/components/dialog-message/dialog-message.component';
 import { ToasterConfig, ToasterService } from 'angular2-toaster';
+import { ResponsePessoa } from '../../services/ResponsePessoa';
 
 
 @Component({
@@ -18,8 +18,6 @@ import { ToasterConfig, ToasterService } from 'angular2-toaster';
     styleUrls: ["./consulta.component.scss"]
 })
 export class ConsultaComponent implements OnInit {
-
-    responsePessoa: Response;
     private pessoas: Pessoa[] = [];
     private titulo: string;
     displayedColumns = ['select', 'codigo', 'nome', 'email', 'ativo', 'editar', 'excluir'];
@@ -70,17 +68,17 @@ export class ConsultaComponent implements OnInit {
             this.pessoaService.excluirPessoa(codigo).subscribe(response => {
 
                 /**PEGA O RESPONSE DO SERVIÇO */
-                this.responsePessoa = <Response>response;
+                let res: ResponsePessoa = <ResponsePessoa>response;
 
                 /*1 = SUCESSO
                 * MOSTRAMOS A MENSAGEM RETORNADA PELO SERVIÇO E DEPOIS REMOVEMOS
                 O REGISTRO DA TABELA HTML*/
-                if (this.responsePessoa.codigo == 1) {
+                if (res.codigo == 1) {
                     this.pessoas.splice(index, 1);
                     this.getPessoa();
                     const alertData: DialogAlertData = {
                         type: 'success',
-                        title: this.responsePessoa.mensagem,
+                        title: res.mensagem,
                     };
                     this.dialogService.open(DialogMessageComponent, { data: alertData });
                 }
@@ -89,7 +87,7 @@ export class ConsultaComponent implements OnInit {
                     const alertData: DialogAlertData = {
                         type: 'error',
                         text: 'Erro excluir cliente',
-                        title: this.responsePessoa.mensagem,
+                        title: res.mensagem,
                     };
                 }
             },
@@ -111,7 +109,7 @@ export class ConsultaComponent implements OnInit {
         this.selection.selected.forEach((pessoa: Pessoa) => {
             this.pessoaService.excluirPessoa(pessoa.codigo).subscribe(response => {
                 listLength--;
-                let res: Response = <Response>response;
+                let res: ResponsePessoa = <ResponsePessoa>response;
                 if (listLength <= 0) {
                     if (res.codigo == 1) {
                         this.selection.clear();

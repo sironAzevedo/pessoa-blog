@@ -3,11 +3,10 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { PessoaService } from '../../services/pessoa.service';
 import { Pessoa } from '../../blog-model/pessoa-model/pessoa';
-import { Response } from '../../services/response';
 import { Observable } from 'rxjs/Observable';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { ToasterService, ToasterConfig, BodyOutputType } from 'angular2-toaster';
+import { ResponsePessoa } from '../../services/ResponsePessoa';
 
 
 @Component({
@@ -17,7 +16,6 @@ import { ToasterService, ToasterConfig, BodyOutputType } from 'angular2-toaster'
 })
 export class CadastroComponent implements OnInit, OnDestroy {
 
-    responsePessoa: Response;
     private titulo: string;
     private pessoa: Pessoa = new Pessoa();
     assetCadastroForm: FormGroup;
@@ -32,8 +30,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
         private formBuilder: FormBuilder,
         private pessoaService: PessoaService,
         private router: Router,
-        private activatedRoute: ActivatedRoute,
-        private toasterService: ToasterService) { }
+        private activatedRoute: ActivatedRoute) { }
 
     /*CARREGADO NA INICIALIZAÇÃO DO COMPONENTE */
     ngOnInit() {
@@ -87,19 +84,19 @@ export class CadastroComponent implements OnInit, OnDestroy {
             this.pessoaService.addPessoa(documentInput).subscribe(response => {
 
                 //PEGA O RESPONSE DO RETORNO DO SERVIÇO
-                this.responsePessoa = <Response>response;
+                let res: ResponsePessoa = <ResponsePessoa>response;
 
                 /*SE RETORNOU 1 DEVEMOS MOSTRAR A MENSAGEM DE SUCESSO
                 E LIMPAR O FORMULÁRIO PARA INSERIR UM NOVO REGISTRO*/
-                if (this.responsePessoa.codigo == 1) {
-                    alert(this.responsePessoa.mensagem);
+                if (res.codigo == 1) {
+                    alert(res.mensagem);
                     this.resetPessoa();
                 }
                 else {
                     /*
                     ESSA MENSAGEM VAI SER MOSTRADA CASO OCORRA ALGUMA EXCEPTION
                     NO SERVIDOR (CODIGO = 0)*/
-                    alert(this.responsePessoa.mensagem);
+                    alert(res.mensagem);
                 }
             },
                 (error) => {
@@ -112,7 +109,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
             this.pessoaService.atualizarPessoa(documentInput).subscribe(response => {
 
                 //PEGA O RESPONSE DO RETORNO DO SERVIÇO
-                let res: Response = <Response>response;
+                let res: ResponsePessoa = <ResponsePessoa>response;
 
                 /*SE RETORNOU 1 DEVEMOS MOSTRAR A MENSAGEM DE SUCESSO
                   E REDIRECIONAR O USUÁRIO PARA A PÁGINA DE CONSULTA*/
@@ -124,7 +121,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
                     /*ESSA MENSAGEM VAI SER MOSTRADA CASO OCORRA ALGUMA EXCEPTION
                     NO SERVIDOR (CODIGO = 0)*/
                     alert(res.mensagem);
-                    this.toasterService.pop('error', 'Atualizar Cliente', res.mensagem);
+                    /*  this.toasterService.pop('error', 'Atualizar Cliente', res.mensagem); */
                 }
                 this.router.navigate(['/consulta-pessoa']);
             },
@@ -152,16 +149,16 @@ export class CadastroComponent implements OnInit, OnDestroy {
         return this.isUpdate;
     }
 
-    public config: ToasterConfig =
+    /* public config: ToasterConfig =
         new ToasterConfig({
             showCloseButton: false,
             tapToDismiss: false,
             timeout: 2000,
             animation: 'fade'
-        });
+        }); */
 
     popToast(msg: string) {
-        this.toasterService.pop('success', msg).bodyOutputType = BodyOutputType.TrustedHtml;;
+        /* this.toasterService.pop('success', msg).bodyOutputType = BodyOutputType.TrustedHtml; */
         /* this.toasterService.pop("info", "Args Title info", "Args Body <p/>  sdf")
             .bodyOutputType = BodyOutputType.TrustedHtml; */
     }
