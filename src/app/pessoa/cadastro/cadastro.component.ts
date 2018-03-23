@@ -16,8 +16,8 @@ import { ResponsePessoa } from '../../services/ResponsePessoa';
 })
 export class CadastroComponent implements OnInit, OnDestroy {
 
-    private titulo: string;
-    private pessoa: Pessoa = new Pessoa();
+    titulo: string;
+    pessoa: Pessoa = new Pessoa();
     assetCadastroForm: FormGroup;
     destroy$ = new Subject();
     isUpdate: boolean = false;

@@ -28,7 +28,7 @@ export class DialogBlogEmailComponent implements OnInit {
   visible: boolean = true;
   selectable: boolean = true;
   removable: boolean = true;
-  addOnBlur: boolean = true;
+  addOnBlurTrue: boolean = true;
 
   // Enter, comma
   separatorKeysCodes = [ENTER, COMMA];

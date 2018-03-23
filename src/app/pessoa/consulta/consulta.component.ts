@@ -17,8 +17,8 @@ import { ResponsePessoa } from '../../services/ResponsePessoa';
     styleUrls: ["./consulta.component.scss"]
 })
 export class ConsultaComponent implements OnInit {
-    private pessoas: Pessoa[] = [];
-    private titulo: string;
+    pessoas: Pessoa[] = [];
+    titulo: string;
     displayedColumns = ['select', 'codigo', 'nome', 'email', 'ativo', 'editar', 'excluir'];
     dataSource: MatTableDataSource<Pessoa>;
     selection = new SelectionModel<Pessoa>(true, []);
@@ -186,12 +186,12 @@ export class ConsultaComponent implements OnInit {
     }
 
 
-  /*   public config: ToasterConfig =
-        new ToasterConfig({
-            showCloseButton: false,
-            tapToDismiss: false,
-            timeout: 2000
-        }); */
+    /*   public config: ToasterConfig =
+          new ToasterConfig({
+              showCloseButton: false,
+              tapToDismiss: false,
+              timeout: 2000
+          }); */
 
     popToast() {
         /* this.toasterService.pop('success', 'Args Title', 'Args Body'); */

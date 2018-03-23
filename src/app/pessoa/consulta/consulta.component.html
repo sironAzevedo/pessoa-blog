@@ -14,7 +14,7 @@
             <mat-icon>menu</mat-icon>
         </button>
         <mat-menu #menuExluir="matMenu" yPosition="above">
-            <button mat-raised-button color="accent" [disabled]="!pessoas.length > 0 || !selection.selected.length > 0 " (click)="excluirSelecionados()">
+            <button mat-raised-button color="accent" disabled="!pessoas.length > 0 || !selection.selected.length > 0 " (click)="excluirSelecionados()">
                 <mat-icon>delete_sweep</mat-icon>
                 <span>Excluir Selecionados</span>
             </button>
@@ -34,7 +34,7 @@
                 <!-- <mat-icon>picture_as_pdf</mat-icon> -->
                 <i class="fa fa-file-pdf-o" style="font-size:24px;color:red"></i>
             </button>
-            <button mat-button (click)="sendEmailExcel()" [disabled]="!selection.selected.length > 0">
+            <button mat-button (click)="sendEmailExcel()" disabled="!selection.selected.length > 0">
                 <!-- <mat-icon>picture_as_pdf</mat-icon> -->
                 <i class="fa fa-file-excel-o" style="font-size:24px"></i>
             </button>

@@ -18,7 +18,7 @@
             {{destinatario.email}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
-          <input placeholder="Destinatarios" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+          <input placeholder="Destinatarios" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlurTrue"
             (matChipInputTokenEnd)="add($event)" />
         </mat-chip-list>
       </mat-form-field>
