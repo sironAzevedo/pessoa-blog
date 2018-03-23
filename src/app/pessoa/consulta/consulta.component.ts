@@ -19,6 +19,7 @@ import { ToasterConfig, ToasterService } from 'angular2-toaster';
 })
 export class ConsultaComponent implements OnInit {
 
+    responsePessoa: Response;
     private pessoas: Pessoa[] = [];
     private titulo: string;
     displayedColumns = ['select', 'codigo', 'nome', 'email', 'ativo', 'editar', 'excluir'];
@@ -69,17 +70,17 @@ export class ConsultaComponent implements OnInit {
             this.pessoaService.excluirPessoa(codigo).subscribe(response => {
 
                 /**PEGA O RESPONSE DO SERVIÇO */
-                let res: Response = <Response>response;
+                this.responsePessoa = <Response>response;
 
                 /*1 = SUCESSO
                 * MOSTRAMOS A MENSAGEM RETORNADA PELO SERVIÇO E DEPOIS REMOVEMOS
                 O REGISTRO DA TABELA HTML*/
-                if (res.codigo == 1) {
+                if (this.responsePessoa.codigo == 1) {
                     this.pessoas.splice(index, 1);
                     this.getPessoa();
                     const alertData: DialogAlertData = {
                         type: 'success',
-                        title: res.mensagem,
+                        title: this.responsePessoa.mensagem,
                     };
                     this.dialogService.open(DialogMessageComponent, { data: alertData });
                 }
@@ -88,7 +89,7 @@ export class ConsultaComponent implements OnInit {
                     const alertData: DialogAlertData = {
                         type: 'error',
                         text: 'Erro excluir cliente',
-                        title: res.mensagem,
+                        title: this.responsePessoa.mensagem,
                     };
                 }
             },

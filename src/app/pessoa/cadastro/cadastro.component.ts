@@ -17,6 +17,7 @@ import { ToasterService, ToasterConfig, BodyOutputType } from 'angular2-toaster'
 })
 export class CadastroComponent implements OnInit, OnDestroy {
 
+    responsePessoa: Response;
     private titulo: string;
     private pessoa: Pessoa = new Pessoa();
     assetCadastroForm: FormGroup;
@@ -86,19 +87,19 @@ export class CadastroComponent implements OnInit, OnDestroy {
             this.pessoaService.addPessoa(documentInput).subscribe(response => {
 
                 //PEGA O RESPONSE DO RETORNO DO SERVIÇO
-                let res: Response = <Response>response;
+                this.responsePessoa = <Response>response;
 
                 /*SE RETORNOU 1 DEVEMOS MOSTRAR A MENSAGEM DE SUCESSO
                 E LIMPAR O FORMULÁRIO PARA INSERIR UM NOVO REGISTRO*/
-                if (res.codigo == 1) {
-                    alert(res.mensagem);
+                if (this.responsePessoa.codigo == 1) {
+                    alert(this.responsePessoa.mensagem);
                     this.resetPessoa();
                 }
                 else {
                     /*
                     ESSA MENSAGEM VAI SER MOSTRADA CASO OCORRA ALGUMA EXCEPTION
                     NO SERVIDOR (CODIGO = 0)*/
-                    alert(res.mensagem);
+                    alert(this.responsePessoa.mensagem);
                 }
             },
                 (error) => {

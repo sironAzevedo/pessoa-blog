@@ -8,10 +8,10 @@ import { PvdHostDirective } from './directives/host.directive';
 import { AutofocusDirective } from './directives/autofocus.directive';
 import { DialogBlogEmailComponent } from './components/dialog-blog-email/dialog-blog-email.component';
 import { DialogMessageComponent } from './components/dialog-message/dialog-message.component';
-import { ToasterModule, ToasterService } from 'angular2-toaster';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { SimpleListComponent } from './components/simple-list/simple-list.component';
 import { CurrencyMaskDirective } from './directives/currency-mask.directive';
+import { ToasterModule, ToasterService } from 'angular2-toaster';
 
 @NgModule({
     imports: [
