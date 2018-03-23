@@ -8,7 +8,6 @@ import { DialogBlogEmailComponent } from '../../shered/components/dialog-blog-em
 import { SelectionModel } from '@angular/cdk/collections';
 import { EventEmitter } from 'events';
 import { DialogAlertData, DialogMessageComponent } from '../../shered/components/dialog-message/dialog-message.component';
-import { ToasterConfig, ToasterService } from 'angular2-toaster';
 import { ResponsePessoa } from '../../services/ResponsePessoa';
 
 
@@ -32,8 +31,7 @@ export class ConsultaComponent implements OnInit {
         private pessoaService: PessoaService,
         private router: Router,
         public dialog: MatDialog,
-        private dialogService: MatDialog,
-        private toasterService: ToasterService
+        private dialogService: MatDialog
     ) { }
 
     ngOnInit() {
@@ -188,14 +186,14 @@ export class ConsultaComponent implements OnInit {
     }
 
 
-    public config: ToasterConfig =
+  /*   public config: ToasterConfig =
         new ToasterConfig({
             showCloseButton: false,
             tapToDismiss: false,
             timeout: 2000
-        });
+        }); */
 
     popToast() {
-        this.toasterService.pop('success', 'Args Title', 'Args Body');
+        /* this.toasterService.pop('success', 'Args Title', 'Args Body'); */
     }
 }
