@@ -1,0 +1,25 @@
+$gridColumns: 8;
+$columnUnit: 100%;
+$columnGutter: .23;
+
+@mixin grid($columns:8, $gutter: .23) {
+    $gridColumns: $columns !global;
+    $columnUnit: 100% / $columns !global;
+    $columnGutter: $gutter !global;
+    
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+@mixin column-width($size:1, $correction:0) {
+    display: inline-flex;
+    flex-wrap: wrap;
+    padding: 0 #{$columnGutter}em;
+    width: ($columnUnit - $correction) * $size;
+    max-width: ($columnUnit - $correction) * $size;
+}
+
+@mixin column-pad($size:1) {
+    width: $columnUnit * $size;
+}

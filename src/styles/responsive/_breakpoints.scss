@@ -1,0 +1,55 @@
+// Extra small screen / phone
+$screen-xs-min: 480px;
+
+// Small screen / tablet
+$screen-sm-min: 768px;
+
+// Medium screen / desktop
+$screen-md-min: 992px;
+
+// Large screen / wide desktop
+$screen-lg-min: 1200px;
+
+$screen-x-lg-min: 1315px;
+
+// So media queries don't overlap when required, provide a maximum
+$screen-xs-max: ($screen-sm-min - 1);
+$screen-sm-max: ($screen-md-min - 1);
+$screen-md-max: ($screen-lg-min - 1);
+
+// @media mapping
+$breakpoints: (
+    'phone':  "only screen and (max-width: #{$screen-xs-max})",
+    'tablet': "only screen and (min-width: #{$screen-sm-min})",
+    'medium': "only screen and (min-width: #{$screen-md-min})",
+    'large':  "only screen and (min-width: #{$screen-lg-min})",
+    'x-large': "only screen and (min-width: #{$screen-x-lg-min})",
+    
+    'tablet-only': "only screen and (min-width: #{$screen-sm-min}) and (max-width: #{$screen-sm-max})",
+    'medium-only': "only screen and (min-width: #{$screen-md-min}) and (max-width: #{$screen-md-max})"
+);
+
+/**
+ * A mixin that receive a breakpoint name and resolve it's mapped media size
+ * @mixin breakpoint
+ * @author Fernando Faria - fernando.al.faria@gmail.com
+ */
+@mixin breakpoint($breakpointKey) {
+    @if map-has-key($breakpoints, $breakpointKey) {
+        $mediaStr: inspect(map-get($breakpoints, $breakpointKey));
+        
+        @media #{$mediaStr} {
+            @content;
+        }
+    } @else {
+        @warn "No value could be retrieved from `#{$breakpoint}`. Make sure it is defined in `$breakpoint` map.";
+    }
+}
+
+[data-mobile~="only"] {
+    display: none;
+    
+    @include breakpoint("phone") {
+        display: flex;
+    }
+}

@@ -1,0 +1,40 @@
+/**
+ * Aqui começam as configurações de tamanhos de widgets
+ * com layout em grid.
+ * @author Fernando Faria - fernando.faria@mjv.com.br
+ */
+$max-grid-rows: 2;
+$max-grid-columns: 3;
+
+$grid-height-unit: 100% / $max-grid-rows;
+$grid-width-unit: 100% / $max-grid-columns;
+
+@mixin widget-grid-mixin($columns: 1, $rows: 1) {
+    $max-grid-columns: $columns !global;
+    $max-grid-rows: $rows !global;
+
+    $grid-height-unit: 100% / $max-grid-rows !global;
+    $grid-width-unit: 100% / $max-grid-columns !global;
+}
+
+@mixin widget-size-mixin($columns: 1, $rows: 1) {
+    $h: $grid-height-unit * $rows;
+    $w: $grid-width-unit * $columns;
+
+    height: calc(#{$h} - 20px);
+    width: calc(#{$w} - 20px);
+}
+
+.widget {
+    @for $i from 1 through $max-grid-columns {
+        @for $j from 1 through $max-grid-rows {
+            $w: $grid-width-unit * $i;
+            $h: $grid-height-unit * $j;
+
+            &._#{$i}x#{$j} {
+                height: calc(#{$h} - 20px);
+                width: calc(#{$w} - 20px);
+            }
+        }
+    }
+}

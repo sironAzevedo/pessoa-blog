@@ -1,0 +1,77 @@
+@import '../../../../styles/responsive/_grid.scss';
+@import '../../../../styles/responsive/_breakpoints.scss'; 
+
+.simple-list-content{
+    -webkit-box-flex: 1;
+    -ms-flex: auto;
+    flex: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+     flex-direction: column; 
+    -ms-flex-pack: start;
+    text-align: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px 2px 5px 2px;
+    min-height: 138px;
+    height: 50%;
+    max-height: 200px;
+    flex-wrap: wrap;
+   /*  width: 550px !important; */
+
+    .message{
+        color: rgba(0,0,0,0.42);
+        font-style: italic;
+        font-size: 12px;
+        margin: 10% 0 0 14%;
+        @include column-width(4, 0.9%);
+    }
+
+    mat-card {
+        @include grid(8);
+        animation: fadeInRight 955ms ease;
+        animation-fill-mode: both;
+        background-color: #fdfdfd;
+        flex-wrap: initial;
+        height: 35px;
+        margin-bottom: .5em;
+        padding: 3px 24px;
+        position: relative;
+
+        @for $i from 1 to 200 {
+            $delay: $i * 147;
+
+            &:nth-child(#{$i}) {
+                animation-delay: #{$delay}ms;
+            }
+        }
+        
+        a{
+            color: #d50000;
+            visibility: hidden;
+            cursor: pointer;
+            font-family: 10px;
+        }
+        &:hover {
+            border-color: rgba(0,0,0,0.42) !important;
+            background-color: #EDEDED !important;
+        }
+        &:hover > a{
+            visibility: visible;
+        }
+        span {
+            font-family: "Roboto","Helvetica Neue",sans-serif;
+            font-size: 1em;
+            white-space: nowrap;
+            @include column-width(3.5, 0.9%);
+        }
+    }
+}
