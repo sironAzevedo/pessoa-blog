@@ -2,4 +2,6 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 /* @import './node_modules/angular2-toaster/src/toaster'; */
 
+/* Romove o "../node_modules/bootstrap/dist/css/bootstrap.min.css", do arquivo .angular-cli.json 
+e adiciona esse importe arqui no arquivo styles.scss*/
 @import '~bootstrap/dist/css/bootstrap.min.css';
