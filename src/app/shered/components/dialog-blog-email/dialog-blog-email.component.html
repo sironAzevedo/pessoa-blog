@@ -27,8 +27,8 @@
         matAutosizeMaxRows="5"></textarea>
 
       <div class="footer">
-        <button type="button" mat-raised-button color="warn" (click)="cancelEmail()" disabled="isSending">Cancelar</button>
-        <button type="button" mat-raised-button color="primary" (click)="sendEmail()" disabled="isSending || !destinatarios.length > 0">
+        <button type="button" mat-raised-button color="warn" (click)="cancelEmail()" [disabled]="isSending">Cancelar</button>
+        <button type="button" mat-raised-button color="primary" (click)="sendEmail()" [disabled]="isSending || !destinatarios.length > 0">
           <!-- <mat-spinner *ngIf="isSending" class="spinner-cadastro" diameter="30" color="accent"> </mat-spinner> -->
           Enviar
         </button>
