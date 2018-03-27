@@ -4,6 +4,8 @@ import { Conta, Meses } from '../../blog-model/blog-enum/tipoConta';
 import { DateAdapter, NativeDateAdapter } from '@angular/material';
 import { Observer } from 'rxjs';
 import { Contas } from '../../blog-model/schema';
+import { ContaService } from '../../services/conta.service';
+import { MesSalarioService } from '../../services/mes-salario.service';
 
 @Component({
   selector: 'app-conta-cadastro',
@@ -27,7 +29,12 @@ export class ContaCadastroComponent implements OnInit {
     { id: '8', name: 'OUTRO' }
   ];
 
-  constructor(private formBuilder: FormBuilder, dateAdapter: DateAdapter<NativeDateAdapter>) {
+  constructor(
+    private formBuilder: FormBuilder,
+    dateAdapter: DateAdapter<NativeDateAdapter>,
+    private contaService: ContaService,
+    private mesSalario: MesSalarioService
+  ) {
     dateAdapter.setLocale('pt-BR');
   }
 
@@ -65,6 +72,10 @@ export class ContaCadastroComponent implements OnInit {
     } else {
       this.canAdd = false;
     }
+  }
+
+  salvarContas() {
+    
   }
 
 
