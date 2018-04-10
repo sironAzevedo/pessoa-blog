@@ -70,7 +70,17 @@
 
           <div class="row">
             <div class="col-sm-12">
-              <app-simple-list class="list" [items]="contas" (onDeleteContas)="deleteContas($event)"></app-simple-list>
+              <div class="list">
+                  <app-simple-list [items]="contas" (onDeleteContas)="deleteContas($event)"></app-simple-list>
+              </div> 
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <button class="buttonFootSalvar" type="button" mat-raised-button color="primary" [disabled]="!contas.length > 0" (click)="salvarContas()">
+                Salvar
+              </button>
             </div>
           </div>
         </div>

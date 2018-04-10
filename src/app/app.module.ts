@@ -19,6 +19,8 @@ import { RlTagInputModule } from 'angular2-tag-input';
 import { ContaCadastroComponent } from './contas/conta-cadastro/conta-cadastro.component';
 import { ContaConsultaComponent } from './contas/conta-consulta/conta-consulta.component';
 import { ContaMenuComponent } from './contas/conta-menu/conta-menu.component';
+import { ContaService } from './services/conta.service';
+import { MesSalarioService } from './services/mes-salario.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,7 @@ import { ContaMenuComponent } from './contas/conta-menu/conta-menu.component';
     NoopAnimationsModule,
     RlTagInputModule
   ],
-  providers: [ConfigService, PessoaService],
+  providers: [ConfigService, PessoaService, ContaService, MesSalarioService],
   bootstrap: [AppComponent],
   entryComponents: [ContaCadastroComponent]
 })
