@@ -6,6 +6,8 @@ import { Observer } from 'rxjs';
 import { Contas } from '../../blog-model/schema';
 import { ContaService } from '../../services/conta.service';
 import { MesSalarioService } from '../../services/mes-salario.service';
+import { MesSalarioModel } from '../../blog-model/mes-salario-model/mes-salario';
+import { MesModel } from '../../blog-model/mes-model/meses';
 
 @Component({
   selector: 'app-conta-cadastro',
@@ -75,7 +77,17 @@ export class ContaCadastroComponent implements OnInit {
   }
 
   salvarContas() {
-    
+    const formValues = this.assetContaForm.value;
+
+    const mes = {
+
+    } as MesModel;
+
+    const mesSalario = {
+
+
+    } as MesSalarioModel;
+
   }
 
 
