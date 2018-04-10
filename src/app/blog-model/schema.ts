@@ -4,4 +4,5 @@ export interface Contas {
     valorConta: string;
     dataVencimento: string;
     dataPagamento: string;
+    dsComentario: String;
 }

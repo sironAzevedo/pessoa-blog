@@ -20,7 +20,7 @@ export class ContaService {
         this.options = new RequestOptions({ headers: this.headers });
     }
 
-    addConta(conta: ContaModel) {
+    salvarConta(conta: ContaModel) {
         return this.http.post(this.baseUrlService, JSON.stringify(conta), this.options)
             .map(res => res.json());
     }

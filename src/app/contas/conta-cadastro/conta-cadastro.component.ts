@@ -8,6 +8,7 @@ import { ContaService } from '../../services/conta.service';
 import { MesSalarioService } from '../../services/mes-salario.service';
 import { MesSalarioModel } from '../../blog-model/mes-salario-model/mes-salario';
 import { MesModel } from '../../blog-model/mes-model/meses';
+import { ContaModel } from '../../blog-model/conta-model/Conta';
 
 @Component({
   selector: 'app-conta-cadastro',
@@ -18,6 +19,7 @@ export class ContaCadastroComponent implements OnInit {
 
   assetContaForm: FormGroup;
   contas: Contas[] = [];
+  contasModel: ContaModel[] = [];
   meses: string[] = Object.keys(Meses);
   canAdd = false;
   tiposConta = [
@@ -35,7 +37,7 @@ export class ContaCadastroComponent implements OnInit {
     private formBuilder: FormBuilder,
     dateAdapter: DateAdapter<NativeDateAdapter>,
     private contaService: ContaService,
-    private mesSalario: MesSalarioService
+    private mesSalarioService: MesSalarioService
   ) {
     dateAdapter.setLocale('pt-BR');
   }
@@ -78,18 +80,43 @@ export class ContaCadastroComponent implements OnInit {
 
   salvarContas() {
     const formValues = this.assetContaForm.value;
+    //Lembrar de mudar a lista do combo do mes da tela para pegar do serviço e não do enum
 
     const mes = {
-
+      codigo: formValues.mes,
+      dsMes: '',
     } as MesModel;
 
     const mesSalario = {
-
-
+      mes: mes,
+      valorSalario: formValues.salario
     } as MesSalarioModel;
 
-  }
+    this.mesSalarioService.salvarMesSalario(mesSalario).subscribe(response => {
 
+      let resp: MesSalarioModel = <MesSalarioModel>response;
+
+
+      this.contas.forEach((conta: Contas) => {
+
+        const contaModel = {
+          tipoConta: conta.tipoConta,
+          valorConta: parseInt(conta.valorConta),
+          dataVencimento: new Date(conta.dataVencimento),
+          dataPagamento: new Date(conta.dataPagamento),
+          dsComentario: conta.dsComentario,
+          mesSalario: resp
+        } as ContaModel;
+        this.contasModel.push(contaModel);
+      });
+    });
+
+    this.contasModel.forEach((conta: ContaModel) => {
+      this.contaService.salvarConta(conta).subscribe(result => {
+        /* this.gotoList(); */
+      }, error => console.error(error));
+    });
+  }
 
   addContas() {
     const formValues = this.assetContaForm.value;

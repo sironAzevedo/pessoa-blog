@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Http, ResponseContentType, Headers, RequestOptions } from '@angular/http';
 import { ConfigService } from "./config.service";
 import { MesSalarioModel } from "../blog-model/mes-salario-model/mes-salario";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class MesSalarioService {
@@ -21,9 +22,10 @@ export class MesSalarioService {
         this.options = new RequestOptions({ headers: this.headers });
     }
 
-    addMesSalario(mesSalario: MesSalarioModel) {
-        return this.http.post(this.baseUrlService, JSON.stringify(mesSalario), this.options)
-            .map(res => res.json());
+    salvarMesSalario(mesSalario: MesSalarioModel): Observable<any> {
+        let result: Observable<MesSalarioModel>;
+        result = this.http.post(this.baseUrlService, JSON.stringify(mesSalario), this.options).map(res => res.json());
+        return result;
     }
 
     atualizarMesSalario(mesSalario: MesSalarioModel) {
