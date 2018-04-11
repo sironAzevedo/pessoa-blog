@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Conta, Meses } from '../../blog-model/blog-enum/tipoConta';
 import { DateAdapter, NativeDateAdapter } from '@angular/material';
-import { Observer } from 'rxjs';
 import { Contas } from '../../blog-model/schema';
 import { ContaService } from '../../services/conta.service';
 import { MesSalarioService } from '../../services/mes-salario.service';
 import { MesSalarioModel } from '../../blog-model/mes-salario-model/mes-salario';
 import { MesModel } from '../../blog-model/mes-model/meses';
 import { ContaModel } from '../../blog-model/conta-model/Conta';
+import { MesService } from '../../services/mes.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-conta-cadastro',
@@ -20,7 +21,8 @@ export class ContaCadastroComponent implements OnInit {
   assetContaForm: FormGroup;
   contas: Contas[] = [];
   contasModel: ContaModel[] = [];
-  meses: string[] = Object.keys(Meses);
+  /* meses: string[] = Object.keys(Meses); */
+  meses: MesModel[] = [];
   canAdd = false;
   tiposConta = [
     { id: '1', name: Conta.ALUGUEL },
@@ -37,12 +39,16 @@ export class ContaCadastroComponent implements OnInit {
     private formBuilder: FormBuilder,
     dateAdapter: DateAdapter<NativeDateAdapter>,
     private contaService: ContaService,
-    private mesSalarioService: MesSalarioService
+    private mesSalarioService: MesSalarioService,
+    private mesService: MesService
   ) {
     dateAdapter.setLocale('pt-BR');
   }
 
   ngOnInit() {
+
+    this.mesService.getMeses().subscribe(result => this.meses = result);
+
     this.assetContaForm = this.formBuilder.group({
       mes: ['', Validators.required],
       salario: ['', Validators.required],
@@ -66,10 +72,22 @@ export class ContaCadastroComponent implements OnInit {
 
   verifyDadosContas(event: KeyboardEvent) {
     const formValues = this.assetContaForm.value;
+
+    const mesSalario = formValues.mes;
     const tipoConta = formValues.conta;
     const valorConta = formValues.valorConta;
     const dataVencimento = formValues.dataVencimento;
     const dataPagamento = formValues.dataPagamento;
+
+    this.mesSalarioService.getMesSalario(parseInt(mesSalario)).subscribe(response => {
+
+      let resp: MesSalarioModel = <MesSalarioModel>response;
+
+      if (resp != null) {
+        this.canAdd = false;
+        alert('Mes já cadastro');
+      }
+    });
 
     if (tipoConta && valorConta && dataVencimento && dataPagamento) {
       this.canAdd = true;
@@ -80,16 +98,14 @@ export class ContaCadastroComponent implements OnInit {
 
   salvarContas() {
     const formValues = this.assetContaForm.value;
-    //Lembrar de mudar a lista do combo do mes da tela para pegar do serviço e não do enum
 
     const mes = {
-      codigo: formValues.mes,
-      dsMes: '',
+      codigo: formValues.mes
     } as MesModel;
 
     const mesSalario = {
       mes: mes,
-      valorSalario: formValues.salario
+      valorSalario: parseFloat(this.inputNumberNormalize(formValues.salario)),
     } as MesSalarioModel;
 
     this.mesSalarioService.salvarMesSalario(mesSalario).subscribe(response => {
@@ -101,7 +117,7 @@ export class ContaCadastroComponent implements OnInit {
 
         const contaModel = {
           tipoConta: conta.tipoConta,
-          valorConta: parseInt(conta.valorConta),
+          valorConta: parseFloat(this.inputNumberNormalize(conta.valorConta)),
           dataVencimento: new Date(conta.dataVencimento),
           dataPagamento: new Date(conta.dataPagamento),
           dsComentario: conta.dsComentario,
@@ -109,13 +125,18 @@ export class ContaCadastroComponent implements OnInit {
         } as ContaModel;
         this.contasModel.push(contaModel);
       });
+
+
+      this.contasModel.forEach((conta: ContaModel) => {
+        this.contaService.salvarConta(conta).subscribe(result => {
+          this.resetTela();
+          this.canAdd = false;
+        }, error => console.error(error));
+      });
     });
 
-    this.contasModel.forEach((conta: ContaModel) => {
-      this.contaService.salvarConta(conta).subscribe(result => {
-        /* this.gotoList(); */
-      }, error => console.error(error));
-    });
+
+
   }
 
   addContas() {
@@ -124,14 +145,14 @@ export class ContaCadastroComponent implements OnInit {
       tipoConta: formValues.conta,
       valorConta: formValues.valorConta,
       dataVencimento: formValues.dataVencimento,
-      dataPagamento: formValues.dataPagamento
+      dataPagamento: formValues.dataPagamento,
+      dsComentario: formValues.comentario
     } as Contas;
 
     this.contas.push(conta);
     this.resetDadosContas();
     this.canAdd = false;
   }
-
 
   deleteContas(contaId: string) {
     const conta = this.contas.find(item => item.id === contaId) || {} as Contas;
@@ -144,6 +165,13 @@ export class ContaCadastroComponent implements OnInit {
     this.assetContaForm.controls.valorConta.reset();
     this.assetContaForm.controls.dataVencimento.reset();
     this.assetContaForm.controls.dataPagamento.reset();
+    this.assetContaForm.controls.comentario.reset();
+  }
+
+  resetTela() {
+    this.assetContaForm.controls.mes.reset();
+    this.assetContaForm.controls.salario.reset();
+    this.contas = [];
   }
 
   inputKeyPressAsBrlCurrency(event: KeyboardEvent) {

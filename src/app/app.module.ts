@@ -21,6 +21,7 @@ import { ContaConsultaComponent } from './contas/conta-consulta/conta-consulta.c
 import { ContaMenuComponent } from './contas/conta-menu/conta-menu.component';
 import { ContaService } from './services/conta.service';
 import { MesSalarioService } from './services/mes-salario.service';
+import { MesService } from './services/mes.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { MesSalarioService } from './services/mes-salario.service';
     NoopAnimationsModule,
     RlTagInputModule
   ],
-  providers: [ConfigService, PessoaService, ContaService, MesSalarioService],
+  providers: [ConfigService, PessoaService, ContaService, MesSalarioService, MesService],
   bootstrap: [AppComponent],
   entryComponents: [ContaCadastroComponent]
 })

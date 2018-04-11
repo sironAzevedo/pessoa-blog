@@ -8,8 +8,8 @@
           <div class="row">
             <div class="col-sm-12">
               <mat-form-field>
-                <mat-select class="form-control" formControlName="mes" placeholder="Mês vigente" class="--small">
-                  <mat-option *ngFor="let mes of meses" [value]="mes">{{mes}}</mat-option>
+                <mat-select (change)="verifyDadosContas($event)" class="form-control" formControlName="mes" placeholder="Mês vigente" class="--small">
+                  <mat-option *ngFor="let mes of meses" [value]="mes.codigo">{{mes.dsMes}}</mat-option>
                 </mat-select>
               </mat-form-field>
 
@@ -71,8 +71,8 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="list">
-                  <app-simple-list [items]="contas" (onDeleteContas)="deleteContas($event)"></app-simple-list>
-              </div> 
+                <app-simple-list [items]="contas" (onDeleteContas)="deleteContas($event)"></app-simple-list>
+              </div>
             </div>
           </div>
 
