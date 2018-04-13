@@ -41,6 +41,10 @@ export class MesSalarioService {
         return this.http.get(this.baseUrlService + codigo).map(res => res.json());
     }
 
+    getMesSalarioPorMes(){
+        
+    }
+
     excluirMesSalario(codigo: number) {
         return this.http.delete(this.baseUrlService + codigo).map(res => res.json());
     }
