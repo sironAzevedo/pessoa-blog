@@ -78,7 +78,7 @@
 
           <div class="row">
             <div class="col-sm-12">
-              <button class="buttonFootSalvar" type="button" mat-raised-button color="primary" [disabled]="!contas.length > 0" (click)="salvarContas()">
+              <button class="buttonFootSalvar" type="button" mat-raised-button color="primary" [disabled]="!(contas.length > 0)" (click)="salvarContas()">
                 Salvar
               </button>
             </div>
