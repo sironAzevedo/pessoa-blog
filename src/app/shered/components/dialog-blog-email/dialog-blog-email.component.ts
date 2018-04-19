@@ -51,7 +51,6 @@ export class DialogBlogEmailComponent implements OnInit {
     this.getlistDestinatario();
   }
 
-
   getlistDestinatario() {
     this.data.pessoaSelecionada.forEach((pessoa: Pessoa) => {
       const destinatario = {
