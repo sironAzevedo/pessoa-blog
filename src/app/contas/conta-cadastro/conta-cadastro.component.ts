@@ -2,14 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Conta, Meses } from '../../blog-model/blog-enum/tipoConta';
 import { DateAdapter, NativeDateAdapter } from '@angular/material';
-import { Contas } from '../../blog-model/schema';
+import {
+  ContaModel, 
+  Contas, 
+  TipoConta,
+  MesSalarioModel,
+  MesModel
+ } from '../../blog-model/schema';
 import { ContaService } from '../../services/conta.service';
 import { MesSalarioService } from '../../services/mes-salario.service';
-import { MesSalarioModel } from '../../blog-model/mes-salario-model/mes-salario';
-import { MesModel } from '../../blog-model/mes-model/meses';
-import { ContaModel } from '../../blog-model/conta-model/Conta';
 import { MesService } from '../../services/mes.service';
 import { Observable } from 'rxjs/Observable';
+import { TipoContaService } from '../../services/tipo-conta.service';
 
 @Component({
   selector: 'app-conta-cadastro',
@@ -23,24 +27,16 @@ export class ContaCadastroComponent implements OnInit {
   contasModel: ContaModel[] = [];
   /* meses: string[] = Object.keys(Meses); */
   meses: MesModel[] = [];
+  tipoContas: TipoConta[] = [];
   canAdd = false;
-  tiposConta = [
-    { id: '1', name: Conta.ALUGUEL },
-    { id: '2', name: Conta.AGUA },
-    { id: '3', name: Conta.LUZ },
-    { id: '4', name: Conta.GAS },
-    { id: '5', name: Conta.COMBO },
-    { id: '6', name: Conta.CC },
-    { id: '7', name: Conta.CELULAR },
-    { id: '8', name: 'OUTRO' }
-  ];
 
   constructor(
     private formBuilder: FormBuilder,
     dateAdapter: DateAdapter<NativeDateAdapter>,
     private contaService: ContaService,
     private mesSalarioService: MesSalarioService,
-    private mesService: MesService
+    private mesService: MesService,
+    private tipoConta: TipoContaService
   ) {
     dateAdapter.setLocale('pt-BR');
   }
@@ -48,6 +44,7 @@ export class ContaCadastroComponent implements OnInit {
   ngOnInit() {
 
     this.mesService.getMeses().subscribe(result => this.meses = result);
+    this.tipoConta.getTipoContas().subscribe(result => this.tipoContas = result);
 
     this.assetContaForm = this.formBuilder.group({
       mes: ['', Validators.required],
@@ -108,6 +105,10 @@ export class ContaCadastroComponent implements OnInit {
       valorSalario: parseFloat(this.inputNumberNormalize(formValues.salario)),
     } as MesSalarioModel;
 
+    const TConta = {
+      codigo: formValues.conta
+    } as TipoConta;
+
     this.mesSalarioService.salvarMesSalario(mesSalario).subscribe(response => {
 
       let resp: MesSalarioModel = <MesSalarioModel>response;
@@ -116,13 +117,14 @@ export class ContaCadastroComponent implements OnInit {
       this.contas.forEach((conta: Contas) => {
 
         const contaModel = {
-          tipoConta: conta.tipoConta,
+          tipoConta: TConta,
           valorConta: parseFloat(this.inputNumberNormalize(conta.valorConta)),
           dataVencimento: new Date(conta.dataVencimento),
           dataPagamento: new Date(conta.dataPagamento),
           dsComentario: conta.dsComentario,
           mesSalario: resp
         } as ContaModel;
+        
         this.contasModel.push(contaModel);
       });
 
@@ -134,9 +136,6 @@ export class ContaCadastroComponent implements OnInit {
         }, error => console.error(error));
       });
     });
-
-
-
   }
 
   addContas() {

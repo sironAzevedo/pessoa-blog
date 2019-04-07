@@ -26,7 +26,7 @@
               <mat-form-field>
                 <mat-select (change)="verifyDadosContas($event)" class="form-control" formControlName="conta" placeholder="Tipo de Conta"
                   class="--small">
-                  <mat-option *ngFor="let conta of tiposConta" [value]="conta.name">{{conta.name}}</mat-option>
+                  <mat-option *ngFor="let conta of tipoContas" [value]="conta.codigo">{{conta.dsTipoConta}}</mat-option>
                 </mat-select>
               </mat-form-field>
 

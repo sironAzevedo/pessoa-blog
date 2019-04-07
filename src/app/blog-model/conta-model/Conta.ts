@@ -1,4 +1,4 @@
-import { MesSalarioModel } from "../mes-salario-model/mes-salario";
+/*import { MesSalarioModel } from "../mes-salario-model/mes-salario";
 
 export class ContaModel {
     codigo: number;
@@ -8,4 +8,4 @@ export class ContaModel {
     dataPagamento: Date;
     dsComentario: String;
     mesSalario: MesSalarioModel;
-}
+}*/

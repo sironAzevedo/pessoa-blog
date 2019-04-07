@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Http, ResponseContentType, Headers, RequestOptions } from '@angular/http';
 import { ConfigService } from "./config.service";
-import { MesSalarioModel } from "../blog-model/mes-salario-model/mes-salario";
 import { Observable } from "rxjs/Observable";
+import { MesSalarioModel } from "../blog-model/schema";
 
 @Injectable()
 export class MesSalarioService {
